@@ -34,6 +34,7 @@ pipeline AirportDataPipeline {
         table: "airports";
         file: "./airports.sqlite";
     }
+    
 
     AirportDataExtractor -> AirportTextFileInterpreter -> AirportCSVInterpreter -> AirportTableInterpreter -> AirportDataLoader;
 }
