@@ -12,7 +12,7 @@
 
 ## Description
 
-This project aims to analyze the interrelationships between climate change metrics—namely annual surface temperature changes, forest carbon stocks, land cover changes, and the frequency of climate-related disasters. Utilizing datasets spanning several decades, the project seeks to identify trends and correlations that can help predict future environmental conditions and inform policy decisions.
+This project aims to analyze the interrelationships between climate change metrics namely annual surface temperature changes, forest carbon stocks, land cover changes, and the frequency of climate-related disasters. Utilizing datasets spanning several decades, the project seeks to identify trends and correlations that can help predict future environmental conditions and inform policy decisions.
 
 The approach involves merging data from four distinct but interconnected datasets. By examining the relationships between surface temperature changes, forest carbon stocks, land cover changes, and disaster frequencies, the project aims to create a holistic view of climate dynamics. Advanced statistical models will be employed to identify patterns and predict future trends. This project not only contributes to our understanding of how different climate-related factors are interlinked but also supports the development of targeted climate resilience and mitigation strategies.
 
