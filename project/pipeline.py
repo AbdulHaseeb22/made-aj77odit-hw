@@ -39,7 +39,6 @@ carbon_stocks_filtered.set_index('Country', inplace=True)
 temp_change_diff_corrected = temp_change_filtered.diff(axis=1).dropna(axis=1)
 carbon_stocks_diff_corrected = carbon_stocks_filtered.diff(axis=1).dropna(axis=1)
 
-# Save to SQLite database
 conn = sqlite3.connect(os.path.join(data_dir, 'climate_data.db'))
 print(f"Saving SQLite database to {os.path.join(data_dir, 'climate_data.db')}")
 
