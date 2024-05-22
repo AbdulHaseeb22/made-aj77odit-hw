@@ -2,19 +2,15 @@
 
 ## Title
 
-**Climate Change Analysis: Investigating the Impact of Surface Temperature and Land Cover Changes on Forest Carbon Stocks and Climate-Related Disasters**
+**Climate Change Analysis: Investigating the Correlation Between Forest Carbon Stocks and Surface Temperature Changes Globally and Regionally**
 
 ## Main Questions
 
 1. **Carbon and Temperature Correlation**: Is there a correlation between changes in forest carbon stocks and surface temperature changes over the decades globally and regionally?
-2. **Disasters and Land Cover Changes**: How do changes in land cover influence the frequency and intensity of climate-related disasters across different regions?
-3. **Integrated Impact Assessment**: What is the overall impact of rising surface temperatures and land cover changes on forest carbon stocks and the frequency of climate-related disasters?
 
 ## Description
 
-This project aims to analyze the interrelationships between climate change metrics—namely annual surface temperature changes, forest carbon stocks, land cover changes, and the frequency of climate-related disasters. Utilizing datasets spanning several decades, the project seeks to identify trends and correlations that can help predict future environmental conditions and inform policy decisions.
-
-The approach involves merging data from four distinct but interconnected datasets. By examining the relationships between surface temperature changes, forest carbon stocks, land cover changes, and disaster frequencies, the project aims to create a holistic view of climate dynamics. Advanced statistical models will be employed to identify patterns and predict future trends. This project not only contributes to our understanding of how different climate-related factors are interlinked but also supports the development of targeted climate resilience and mitigation strategies.
+This project aims to analyze the correlation between changes in forest carbon stocks and surface temperature changes over the decades, both globally and regionally. Utilizing datasets spanning several decades, the project seeks to identify trends and correlations that can help predict future environmental conditions and inform policy decisions.
 
 ## Data Sources
 
@@ -29,18 +25,6 @@ The approach involves merging data from four distinct but interconnected dataset
 - **Metadata URL**: [ IMF Surface Temperature Data](https://climatedata.imf.org/datasets/4063314923d74187be9596f10d034914/about)
 - **Data URL**: [Surface Temperature Data CSV](https://opendata.arcgis.com/datasets/4063314923d74187be9596f10d034914_0.csv)
 - **Description**: Estimates of changes in the mean surface temperature are presented, in Degree Celsius, for the years 1961-2021 by country and for World.
-
-### Datasource 3: Climate-Related Disasters Frequency Dataset
-
-- **Metadata URL**: [IMF Disaster Data](https://climatedata.imf.org/datasets/b13b69ee0dde43a99c811f592af4e821/about)
-- **Data URL**: [IMF Disaster Data CSV](https://opendata.arcgis.com/datasets/b13b69ee0dde43a99c811f592af4e821_0.csv)
-- **Description**: This dataset provides annual frequency data of climate-related disasters from 1980 to 2022.
-
-### Datasource 4: Land Cover Accounts Dataset
-
-- **Metadata URL**: [IMF Land Cover Data](https://climatedata.imf.org/datasets/b1e6c0ea281f47b285addae0cbb28f4b/about)
-- **Data URL**: [IMF Land Cover Data CSV](https://opendata.arcgis.com/datasets/b1e6c0ea281f47b285addae0cbb28f4b_0.csv)
-- **Description**: This dataset includes annual land cover changes from 1992 to 2020, with data on different land cover types and their climate influence.
 
 ## Work Packages
 
