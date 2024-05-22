@@ -6,7 +6,7 @@
 
 ## Main Questions
 
-1. **Carbon and Temperature Correlation**: Is there a correlation between changes in forest carbon stocks and surface temperature changes over the decades globally and regionally?
+1. **Carbon and Temperature Correlation**: Is there a correlation between changes in forest carbon stocks and surface temperature changes over the decades globally or regionally?
 
 ## Description
 
