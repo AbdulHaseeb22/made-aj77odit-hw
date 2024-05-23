@@ -5,7 +5,7 @@ import os
 annual_surface_temp_url = 'https://opendata.arcgis.com/datasets/4063314923d74187be9596f10d034914_0.csv'
 forest_and_carbon_url = 'https://opendata.arcgis.com/datasets/66dad9817da847b385d3b2323ce1be57_0.csv'
 
-data_dir = './data'
+data_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data')
 os.makedirs(data_dir, exist_ok=True)
 
 def download_and_read_csv(url, filename):
