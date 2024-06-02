@@ -5,3 +5,4 @@
 /data/*
 !data/.gitignore
 correlation.py
+data-exploration.ipynb
