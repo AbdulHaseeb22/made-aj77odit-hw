@@ -1,0 +1,87 @@
+pipeline TransportDataPipeline{
+
+        block DataFetcher oftype HttpExtractor {
+        url: "https://www-genesis.destatis.de/genesis/downloads/00/tables/46131-0014_00.csv";
+        retries: 3;
+    }
+
+    block TextFileDecoder oftype TextFileInterpreter {
+        encoding: "latin3";
+    }
+
+
+    block RelevantRowsSelector oftype TextRangeSelector {
+        lineFrom: 8;
+    }
+
+
+    block CSVParser oftype CSVInterpreter {
+        delimiter: ";";
+    }
+
+    block MainHeaderWriter oftype CellWriter {
+        at: range A1:E1;
+        write: ['year', 'month', 'goods_id', 'goods_name', 'goods_source'];
+    }
+
+
+    block QuantityHeaderWriter oftype CellWriter {
+        at: range AT1:AU1;
+        write: ['abroad', 'total'];
+    }
+
+    constraint PositiveNumberConstraint oftype RangeConstraint {
+        lowerBound: 0;
+        lowerBoundInclusive: false;
+    }
+
+    constraint MonthNameConstraint oftype AllowlistConstraint {
+        allowlist: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+    }
+
+    constraint GoodsIdPattern oftype RegexConstraint {
+        regex: /^NST7-[A-Z0-9]{3}$/;
+    }
+
+    valuetype PositiveInteger oftype integer {
+        constraints: [PositiveNumberConstraint];
+    }
+
+    valuetype ValidMonth oftype text {
+        constraints: [MonthNameConstraint];
+    }
+
+    valuetype ValidGoodsId oftype text {
+        constraints: [GoodsIdPattern];
+    }
+
+
+
+    block DataFormatter oftype TableInterpreter {
+        header: true;
+        columns: [
+            "year" oftype PositiveInteger,
+            "month" oftype ValidMonth,
+            "goods_id" oftype ValidGoodsId,
+            "goods_name" oftype text,
+            "goods_source" oftype text,
+            "abroad" oftype PositiveInteger,
+            "total" oftype PositiveInteger
+        ];
+    }
+
+    block SQLiteDataLoader oftype SQLiteLoader {
+        table: "goods";
+        file: "./goodsTransportedByTrain.sqlite";
+    }
+
+    DataFetcher
+        -> TextFileDecoder
+             -> RelevantRowsSelector
+                -> CSVParser
+                    -> MainHeaderWriter
+                        -> QuantityHeaderWriter
+                            -> DataFormatter
+                                -> SQLiteDataLoader;
+
+}
