@@ -11,11 +11,11 @@ forest_and_carbon_url = 'https://opendata.arcgis.com/datasets/66dad9817da847b385
 data_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data')
 os.makedirs(data_dir, exist_ok=True)
 
-def download_and_read_csv(url, filename):
+def download_and_read_csv(url, filename, directory=data_dir):
     try:
         logging.info(f"Downloading {url}")
         df = pd.read_csv(url)
-        file_path = os.path.join(data_dir, filename)
+        file_path = os.path.join(directory, filename)
         df.to_csv(file_path, index=False)
         logging.info(f"Saved {filename} to {file_path}")
         return df
@@ -23,43 +23,65 @@ def download_and_read_csv(url, filename):
         logging.error(f"Failed to download or save {filename}: {e}")
         raise
 
+def filter_and_transform_data(df, indicator, years):
+    try:
+        filtered_df = df[df['Indicator'] == indicator].loc[:, ['Country'] + years]
+        filtered_df = filtered_df.dropna().copy()
+        filtered_df.loc[:, years] = filtered_df.loc[:, years].apply(pd.to_numeric)
+        filtered_df.set_index('Country', inplace=True)
+        return filtered_df
+    except Exception as e:
+        logging.error(f"Error in filtering and transforming data: {e}")
+        raise
+
+def calculate_diff(df):
+    try:
+        diff_df = df.diff(axis=1).dropna(axis=1)
+        return diff_df
+    except Exception as e:
+        logging.error(f"Error in calculating differences: {e}")
+        raise
+
+def save_to_sqlite(df_dict, db_path):
+    try:
+        conn = sqlite3.connect(db_path)
+        logging.info(f"Saving SQLite database to {db_path}")
+        for table_name, df in df_dict.items():
+            df.to_sql(table_name, conn, if_exists='replace', index=False)
+        conn.close()
+    except Exception as e:
+        logging.error(f"Error saving to SQLite database: {e}")
+        raise
+
 def process_data():
     try:
         annual_surface_temp = download_and_read_csv(annual_surface_temp_url, 'Annual_Surface_Temperature_Change.csv')
         forest_and_carbon = download_and_read_csv(forest_and_carbon_url, 'Forest_and_Carbon.csv')
 
-        years_temp = [f'F{year}' for year in range(1992, 2021)]
-        years_carbon = [f'F{year}' for year in range(1992, 2021)]
+        years = [f'F{year}' for year in range(1992, 2021)]
 
-        temp_change = annual_surface_temp[
-            annual_surface_temp['Indicator'] == 'Temperature change with respect to a baseline climatology, corresponding to the period 1951-1980'
-        ].loc[:, ['Country'] + years_temp]
+        temp_change = filter_and_transform_data(
+            annual_surface_temp,
+            'Temperature change with respect to a baseline climatology, corresponding to the period 1951-1980',
+            years
+        )
+        
+        carbon_stocks = filter_and_transform_data(
+            forest_and_carbon,
+            'Carbon stocks in forests',
+            years
+        )
 
-        carbon_stocks = forest_and_carbon[
-            forest_and_carbon['Indicator'] == 'Carbon stocks in forests'
-        ].loc[:, ['Country'] + years_carbon]
+        temp_change_diff_corrected = calculate_diff(temp_change)
+        carbon_stocks_diff_corrected = calculate_diff(carbon_stocks)
 
-        temp_change_filtered = temp_change.dropna().copy()
-        carbon_stocks_filtered = carbon_stocks.dropna().copy()
+        save_to_sqlite({
+            'Annual_Surface_Temperature_Change': temp_change,
+            'Forest_and_Carbon': carbon_stocks,
+            'Temp_Change_Diff': temp_change_diff_corrected,
+            'Carbon_Stocks_Diff': carbon_stocks_diff_corrected
+        }, os.path.join(data_dir, 'climate_data.db'))
 
-        temp_change_filtered.loc[:, years_temp] = temp_change_filtered.loc[:, years_temp].apply(pd.to_numeric)
-        carbon_stocks_filtered.loc[:, years_carbon] = carbon_stocks_filtered.loc[:, years_carbon].apply(pd.to_numeric)
-
-        temp_change_filtered.set_index('Country', inplace=True)
-        carbon_stocks_filtered.set_index('Country', inplace=True)
-
-        temp_change_diff_corrected = temp_change_filtered.diff(axis=1).dropna(axis=1)
-        carbon_stocks_diff_corrected = carbon_stocks_filtered.diff(axis=1).dropna(axis=1)
-
-        conn = sqlite3.connect(os.path.join(data_dir, 'climate_data.db'))
-        logging.info(f"Saving SQLite database to {os.path.join(data_dir, 'climate_data.db')}")
-
-        temp_change.to_sql('Annual_Surface_Temperature_Change', conn, if_exists='replace', index=False)
-        carbon_stocks.to_sql('Forest_and_Carbon', conn, if_exists='replace', index=False)
-        temp_change_diff_corrected.to_sql('Temp_Change_Diff', conn, if_exists='replace')
-        carbon_stocks_diff_corrected.to_sql('Carbon_Stocks_Diff', conn, if_exists='replace')
-
-        conn.close()
         logging.info("Pipeline completed successfully.")
     except Exception as e:
         logging.error(f"An error occurred during data processing: {e}")

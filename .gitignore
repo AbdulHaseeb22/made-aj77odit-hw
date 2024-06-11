@@ -7,3 +7,5 @@
 correlation.py
 data-exploration.ipynb
 data-exploration-checkpoint.ipynb
+/tests/test_data/*
+__pycache__
