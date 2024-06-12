@@ -20,6 +20,10 @@ pipeline TemperatureDataPipeline{
     delimiter: ";";
     }
 
+    block DeleteTempDataColumns oftype ColumnDeleter {
+        delete: [column F, column G, column H, column I, column K, column L, column M, column N, column *];
+    }
+
     block RenameTemperatureDataColumns oftype CellWriter{
         at: range A1:F1;
         write: ["id", "producer", "model", "month","temperature", "battery_temperature"];
@@ -33,9 +37,9 @@ pipeline TemperatureDataPipeline{
     }
 
     transform ConvertTempFromCelToFar{
-        from Cel oftype decimal;
-        to Far oftype decimal;
-        Far: (Cel * 9/5) + 32;
+        from Celsius oftype decimal;
+        to Fahrenheit  oftype decimal;
+        Fahrenheit : (Celsius * 9/5) + 32;
     }
 
     block TransformTempFromCelToFar oftype TableTransformer{
@@ -72,9 +76,10 @@ pipeline TemperatureDataPipeline{
             -> TemperatureDataFilePicker
                 -> TextFileDecoder
                     -> TemperatureDataCSVInterpreter
-                        -> RenameTemperatureDataColumns
-                            -> TempDataTableInterpreter
-                                -> TransformTempFromCelToFar
+                        -> DeleteTempDataColumns
+                            -> RenameTemperatureDataColumns
+                                -> TempDataTableInterpreter
                                     -> TransformBatteryTempFromCelToFar
-                                        -> TempDataLoader;
+                                        -> TransformTempFromCelToFar
+                                            -> TempDataLoader;
 }
