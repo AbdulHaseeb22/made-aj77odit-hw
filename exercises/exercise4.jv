@@ -1,0 +1,79 @@
+pipeline TemperatureDataPipeline{
+
+    block TemperatureDataFetcher oftype HttpExtractor {
+        url: "https://www.mowesta.com/data/measure/mowesta-dataset-20221107.zip";
+    }
+
+     block ZipTemperatureDataInterpreter oftype ArchiveInterpreter {
+        archiveType: "zip";
+    }
+
+    block TemperatureDataFilePicker oftype FilePicker {
+        path:"/data.csv";
+    }
+
+    block TextFileDecoder oftype TextFileInterpreter {
+        encoding: "latin3";
+    }
+
+    block TemperatureDataCSVInterpreter oftype CSVInterpreter {
+    delimiter: ";";
+    }
+
+    block RenameTemperatureDataColumns oftype CellWriter{
+        at: range A1:F1;
+        write: ["id", "producer", "model", "month","temperature", "battery_temperature"];
+    }
+
+    constraint TempIdConstraint on integer:
+        value > 0;
+
+    valuetype TempIdType oftype integer{
+        constraints: [TempIdConstraint];
+    }
+
+    transform ConvertTempFromCelToFar{
+        from Cel oftype decimal;
+        to Far oftype decimal;
+        Far: (Cel * 9/5) + 32;
+    }
+
+    block TransformTempFromCelToFar oftype TableTransformer{
+        inputColumns:["temperature"];
+        outputColumn:"temperature";
+        use: ConvertTempFromCelToFar;
+    }
+
+    block TransformBatteryTempFromCelToFar oftype TableTransformer{
+        inputColumns:['battery_temperature'];
+        outputColumn:'battery_temperature';
+        use: ConvertTempFromCelToFar;
+    }
+
+    block TempDataTableInterpreter oftype TableInterpreter{
+        header:true;
+        columns:[
+            "id" oftype TempIdType,
+            "producer" oftype text,
+            "month" oftype integer,
+            "temperature" oftype decimal,
+            "battery_temperature" oftype decimal,
+        ];
+    }
+
+    block TempDataLoader oftype SQLiteLoader{
+        table:"temperatures";
+        file:"./temperatures.sqlite";
+    }
+
+    TemperatureDataFetcher
+        -> ZipTemperatureDataInterpreter
+            -> TemperatureDataFilePicker
+                -> TextFileDecoder
+                    -> TemperatureDataCSVInterpreter
+                        -> RenameTemperatureDataColumns
+                            -> TempDataTableInterpreter
+                                -> TransformTempFromCelToFar
+                                    -> TransformBatteryTempFromCelToFar
+                                        -> TempDataLoader;
+}
