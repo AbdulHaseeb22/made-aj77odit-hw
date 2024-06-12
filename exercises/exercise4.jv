@@ -45,8 +45,8 @@ pipeline TemperatureDataPipeline{
     }
 
     block TransformBatteryTempFromCelToFar oftype TableTransformer{
-        inputColumns:['battery_temperature'];
-        outputColumn:'battery_temperature';
+        inputColumns:["battery_temperature"];
+        outputColumn:"battery_temperature";
         use: ConvertTempFromCelToFar;
     }
 
@@ -55,6 +55,7 @@ pipeline TemperatureDataPipeline{
         columns:[
             "id" oftype TempIdType,
             "producer" oftype text,
+            "model" oftype text,
             "month" oftype integer,
             "temperature" oftype decimal,
             "battery_temperature" oftype decimal,
