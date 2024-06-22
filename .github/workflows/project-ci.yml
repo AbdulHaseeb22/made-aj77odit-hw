@@ -7,7 +7,7 @@ on:
     paths:
       - project/**
       - tests/**
-  workflow_dispatch:
+  workflow_dispatch: # Add this line to enable manual triggering
 
 jobs:
   build-and-test:
@@ -27,9 +27,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run project pipeline
+      - name: Make pipeline.sh executable
         run: |
           chmod +x project/pipeline.sh
+
+      - name: Run Shell pipeline script
+        run: |
           ./project/pipeline.sh
 
       - name: Run tests
