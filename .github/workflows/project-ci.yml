@@ -38,8 +38,8 @@ jobs:
 
       - name: Verify downloaded files
         run: |
-          ls -al data
-          cat data/*.csv
+          echo "Files in data directory:"
+          ls -1 data
 
       - name: Run tests
         run: |
