@@ -28,14 +28,15 @@ jobs:
           pip install -r requirements.txt
 
       - name: Make pipeline.sh executable
-        run: |
-          chmod +x project/pipeline.sh
+        run: chmod +x project/pipeline.sh
 
       - name: Run Shell pipeline script
-        working-directory: project
+        run: ./project/pipeline.sh
+
+      - name: Verify downloaded files
         run: |
-          ./pipeline.sh
+          ls -al data
+          cat data/*.csv
 
       - name: Run tests
-        run: |
-          pytest
+        run: pytest
