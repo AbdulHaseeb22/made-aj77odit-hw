@@ -17,7 +17,9 @@ def test_data_pipeline():
 
     subprocess.run(["python", script_path], check=True)
 
-    db_path = os.path.join('..', 'data', 'climate_data.db')
+    
+    print(f"Checking if database exists at: {db_path}")
+    # db_path = os.path.join('..', 'data', 'climate_data.db')
     assert os.path.exists(db_path), f"Database file does not exist at {db_path}"
 
     conn = sqlite3.connect(db_path)
