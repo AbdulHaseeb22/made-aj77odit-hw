@@ -7,7 +7,7 @@ on:
     paths:
       - project/**
       - tests/**
-  workflow_dispatch: # Add this line to enable manual triggering
+  workflow_dispatch:
 
 jobs:
   build-and-test:

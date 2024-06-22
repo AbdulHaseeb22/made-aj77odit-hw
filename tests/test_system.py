@@ -4,12 +4,14 @@ import sqlite3
 
 def test_data_pipeline():
     script_dir = os.path.dirname(__file__)
-    script_path = os.path.join(script_dir, '..', 'project', 'pipeline.py')
-    script_path = os.path.abspath(script_path)
+    project_dir = os.path.abspath(os.path.join(script_dir, '..', 'project'))
+    script_path = os.path.join(project_dir, 'pipeline.py')
+    data_dir = os.path.abspath(os.path.join(script_dir, '..', 'data'))
+    db_path = os.path.join(data_dir, 'climate_data.db')
     subprocess.run(["python", script_path], check=True)
 
     db_path = os.path.join('..', 'data', 'climate_data.db')
-    assert os.path.exists(db_path), "Database file does not exist."
+    assert os.path.exists(db_path), f"Database file does not exist at {db_path}"
 
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
