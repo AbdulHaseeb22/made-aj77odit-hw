@@ -8,6 +8,13 @@ def test_data_pipeline():
     script_path = os.path.join(project_dir, 'pipeline.py')
     data_dir = os.path.abspath(os.path.join(script_dir, '..', 'data'))
     db_path = os.path.join(data_dir, 'climate_data.db')
+
+    print(f"Script directory: {script_dir}")
+    print(f"Project directory: {project_dir}")
+    print(f"Script path: {script_path}")
+    print(f"Data directory: {data_dir}")
+    print(f"Database path: {db_path}")
+
     subprocess.run(["python", script_path], check=True)
 
     db_path = os.path.join('..', 'data', 'climate_data.db')
