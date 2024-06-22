@@ -7,7 +7,7 @@ on:
     paths:
       - project/**
       - tests/**
-  workflow_dispatch: # Add this line to enable manual triggering
+  workflow_dispatch:
 
 jobs:
   build-and-test:
@@ -32,8 +32,9 @@ jobs:
           chmod +x project/pipeline.sh
 
       - name: Run Shell pipeline script
+        working-directory: project
         run: |
-          ./project/pipeline.sh
+          ./pipeline.sh
 
       - name: Run tests
         run: |
