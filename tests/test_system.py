@@ -3,7 +3,9 @@ import subprocess
 import sqlite3
 
 def test_data_pipeline():
-    script_path = os.path.join('..', 'project', 'pipeline.py')
+    script_dir = os.path.dirname(__file__)
+    script_path = os.path.join(script_dir, '..', 'project', 'pipeline.py')
+    script_path = os.path.abspath(script_path)
     subprocess.run(["python", script_path], check=True)
 
     db_path = os.path.join('..', 'data', 'climate_data.db')
