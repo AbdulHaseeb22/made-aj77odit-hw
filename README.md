@@ -42,6 +42,8 @@ To view your exercise feedback, navigate to Actions -> Exercise Feedback in your
 
 The exercise feedback is executed whenever you make a change in files in the `exercise` folder and push your local changes to the repository on GitHub. To see the feedback, open the latest GitHub Action run, open the `exercise-feedback` job and `Exercise Feedback` step. You should see command line output that contains output like this:
 
+changes for triggering actions.
+
 ```sh
 Found exercises/exercise1.jv, executing model...
 Found output file airports.sqlite, grading...
