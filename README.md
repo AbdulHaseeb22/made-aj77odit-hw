@@ -69,16 +69,16 @@ To improve the analysis, it is essential to ensure consistency in country names 
 - examples/: Scripts and notebooks for running and trying out examples.
 - project/: Main project folder containing modules, tests, and reports along with files for shell pipelines.
 - etl_pipeline/: Modules for data extraction, transformation, and loading.
-data_exploratory/: Modules for all data analysis.
-data_report_latex/: LaTeX code for data report.
-final_report_latex/: LaTeX code for final analysis report.
-tests/: Modular pytest scripts.
-data-report.pdf: Data report PDF.
-analysis-report.pdf: Analysis report PDF.
-pipeline.py: Main script for running the data pipeline.
-pipeline.sh: Shell script for running the data pipeline.
-test.sh: Shell script for running tests.
-project-plan.md: Project plan document.
-.gitignore: Specifies files and directories to be ignored by git.
-requirements.txt: Lists the dependencies required for the project.
-README.md: Project overview and instructions.
+- data_exploratory/: Modules for all data analysis.
+- data_report_latex/: LaTeX code for data report.
+- final_report_latex/: LaTeX code for final analysis report.
+- tests/: Modular pytest scripts.
+- data-report.pdf: Data report PDF.
+- analysis-report.pdf: Analysis report PDF.
+- pipeline.py: Main script for running the data pipeline.
+- pipeline.sh: Shell script for running the data pipeline.
+- test.sh: Shell script for running tests.
+- project-plan.md: Project plan document.
+- .gitignore: Specifies files and directories to be ignored by git.
+- requirements.txt: Lists the dependencies required for the project.
+- README.md: Project overview and instructions.
