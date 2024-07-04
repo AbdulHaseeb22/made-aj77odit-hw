@@ -82,3 +82,34 @@ To improve the analysis, it is essential to ensure consistency in country names 
 - .gitignore: Specifies files and directories to be ignored by git.
 - requirements.txt: Lists the dependencies required for the project.
 - README.md: Project overview and instructions.
+
+
+## License
+The content of this project is licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) license. For more information, visit [CC BY 4.0 License](https://creativecommons.org/licenses/by/4.0/).
+
+For further information and detailed data source licenses, visit the respective data providers.
+
+## Getting Started
+To get started with this project, follow these steps:
+
+1. **Clone the repository to your local machine**:
+    ```sh
+    git clone <[repository-url](https://github.com/AbdulHaseeb22/made-aj77odit-hw)>
+    cd <made-aj77odit-hw>
+    ```
+
+2. **Install project dependencies**:
+    ```sh
+    pip install -r requirements.txt
+    ```
+
+3. **Run the Data Pipeline**:
+    ```sh
+    python project/pipeline.py
+    ```
+
+4. **Run the Data Analysis**:
+    ```sh
+    python project/data_analysis.py
+    ```
+
