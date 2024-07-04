@@ -34,8 +34,6 @@ The data pipeline consists of three main modules:
 
 The ETL process ensures data quality, consistency, and alignment with the research questions.
 
-![ETL Pipeline Diagram](path/to/etl_pipeline_diagram.png)
-
 ## Analysis Summary
 The analysis was performed to investigate the correlation between changes in forest carbon stocks and surface temperature changes:
 
@@ -82,10 +80,6 @@ To improve the analysis, it is essential to ensure consistency in country names 
 - .gitignore: Specifies files and directories to be ignored by git.
 - requirements.txt: Lists the dependencies required for the project.
 - README.md: Project overview and instructions.
-
-
-## License
-The content of this project is licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) license. For more information, visit [CC BY 4.0 License](https://creativecommons.org/licenses/by/4.0/).
 
 For further information and detailed data source licenses, visit the respective data providers.
 
