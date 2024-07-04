@@ -10,9 +10,7 @@
 - [Analysis Summary](#analysis-summary)
 - [Conclusion](#conclusion)
 - [Repository Structure](#repository-structure)
-- [License](#license)
 - [Getting Started](#getting-started)
-- [Version Control Steps](#version-control-steps)
 
 ## Project Overview
 This project investigates the correlation between changes in forest carbon stocks and surface temperature changes globally. Forests play a crucial role in sequestering carbon dioxide, which helps mitigate climate change. The primary question addressed is: **"How do changes in forest carbon stocks correlate with surface temperature changes?"**
