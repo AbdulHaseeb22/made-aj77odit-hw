@@ -94,8 +94,8 @@ To get started with this project, follow these steps:
 
 1. **Clone the repository to your local machine**:
     ```sh
-    git clone <[repository-url](https://github.com/AbdulHaseeb22/made-aj77odit-hw)>
-    cd <made-aj77odit-hw>
+    git clone (https://github.com/AbdulHaseeb22/made-aj77odit-hw)
+    cd made-aj77odit-hw
     ```
 
 2. **Install project dependencies**:
