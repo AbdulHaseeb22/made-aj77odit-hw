@@ -64,11 +64,11 @@ The analysis indicates that there is no consistent, strong correlation between c
 To improve the analysis, it is essential to ensure consistency in country names across all datasets. Additionally, incorporating long-term trends and other environmental factors could provide a more comprehensive understanding of the relationship between forest carbon stocks and surface temperature changes.
 
 ## Repository Structure
-.github/workflows: GitHub Actions workflows.
-data/: Raw and processed data files.
-examples/: Scripts and notebooks for running and trying out examples.
-project/: Main project folder containing modules, tests, and reports along with files for shell pipelines.
-etl_pipeline/: Modules for data extraction, transformation, and loading.
+- .github/workflows: GitHub Actions workflows.
+- data/: Raw and processed data files.
+- examples/: Scripts and notebooks for running and trying out examples.
+- project/: Main project folder containing modules, tests, and reports along with files for shell pipelines.
+- etl_pipeline/: Modules for data extraction, transformation, and loading.
 data_exploratory/: Modules for all data analysis.
 data_report_latex/: LaTeX code for data report.
 final_report_latex/: LaTeX code for final analysis report.
